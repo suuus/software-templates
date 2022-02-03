@@ -1,14 +1,14 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: create-react-app-template
-  title: Create React App Template
+  name: create-react-app-template-gitlab
+  title: Create React App on GitLab
   description: Create a new CRA website project
   tags:
     - react
     - cra
 spec:
-  owner: web@example.com
+  owner: suus@suuu.us
   type: website
   parameters:
     - title: Provide some simple information
@@ -42,15 +42,13 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - github.com
+              - gitlab.com
   steps:
     - id: template
       name: Fetch Skeleton + Template
       action: fetch:template
       input:
         url: ./skeleton
-        copyWithoutRender:
-          - .github/workflows/*
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
@@ -59,9 +57,9 @@ spec:
 
     - id: publish
       name: Publish
-      action: publish:github
+      action: publish:gitlab
       input:
-        allowedHosts: ["github.com"]
+        allowedHosts: ["gitlab.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
 
